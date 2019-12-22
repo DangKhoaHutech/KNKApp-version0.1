@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="18/12/2019 18:05PM"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"/>
     </LinearLayout>
 
@@ -45,5 +46,6 @@
         android:gravity="end"
         android:visibility="gone"
         android:textAlignment="textEnd"
-        android:text="Đã xem" />
+        android:text="Đã xem"
+        android:textColor="@color/colorWhite"/>
 </LinearLayout>

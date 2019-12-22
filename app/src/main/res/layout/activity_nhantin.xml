@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1EDED"
+    android:background="@drawable/anhbianoel1"
     tools:context=".NhantinActivity">
 
     <!--Thiết kế mục người nhận tin nhắn-->
@@ -12,7 +12,7 @@
         android:id="@+id/thanhtt_id"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
+        android:background="#009688"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
         <com.blogspot.atifsoftwares.circularimageview.CircularImageView
@@ -53,9 +53,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/DSNhantin_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/thanhtt_id"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="56dp"/>
 
     <LinearLayout
         android:id="@+id/GiaoDienNhanTin_id"

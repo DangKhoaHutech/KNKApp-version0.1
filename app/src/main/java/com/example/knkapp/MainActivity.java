@@ -7,21 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // khởi tạo 2 biến button
-    Button btnDangnhap, btnDangki;
+    Button btnDangnhap; TextView txtDangki;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // gọi id từ view
-        btnDangki = findViewById(R.id.btn_Mdangki_id);
+        txtDangki = findViewById(R.id.txt_Mdangki_id);
         btnDangnhap= findViewById(R.id.btn_Mdangnhap_id);
         // xử lý click của button đăng kí tài khoản người dùng
-        btnDangki.setOnClickListener(new View.OnClickListener() {
+        txtDangki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // khởi động activity đăng ký

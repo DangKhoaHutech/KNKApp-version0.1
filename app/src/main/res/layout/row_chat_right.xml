@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="18/12/2019 18:05PM"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"/>
 
         <TextView
@@ -46,6 +47,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtdaXem_id"
         android:gravity="end"
+        android:textColor="@color/colorWhite"
         android:textAlignment="textEnd"
         android:text="Đã xem"/>
 </LinearLayout>

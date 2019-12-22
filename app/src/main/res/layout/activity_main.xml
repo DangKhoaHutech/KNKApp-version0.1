@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@drawable/noel7"
     tools:context=".MainActivity">
 
     <!-- Logo của ứng dụng
@@ -16,29 +17,36 @@
         android:layout_height="250dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         />
-    <!--Button đăng kí tài khoản
-        *set id cho button đăng ki
-        *dài: match, rộng : wrap
-        * set button đăng kí nằm trên button đăng nhập-->
-    <Button
-        android:id="@+id/btn_Mdangki_id"
-        android:text="Đăng kí tài khoản"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btn_Mdangnhap_id"
-        />
-    <!--Button đăng nhập
-    *set id cho button đăng nhập
-    * set button nằm dưới cùng của Relative_Layout "true"
-    *set cách dưới lên 10dp
-    *dài: match, rộng : wrap-->
+
+    <!--Button đăng nhập-->
     <Button
         android:id="@+id/btn_Mdangnhap_id"
         android:text="Đăng nhập"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
+        android:layout_above="@id/txt_Mdangki_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="#5EC4B7"
+        android:textSize="20sp"
+        android:textColor="#E9175E"/>
+    <!--Button đăng kí tài khoản-->
+    <TextView
+        android:id="@+id/txt_Mdangki_id"
+        android:text="Chưa có tài khoản ?Đăng kí"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#2138DB"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="130dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thiết kế bởi Trần Đăng Khoa"
+        android:textSize="10sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

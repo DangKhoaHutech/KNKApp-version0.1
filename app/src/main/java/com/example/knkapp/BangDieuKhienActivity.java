@@ -10,9 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.knkapp.Fragment.BanbeFragment;
-import com.example.knkapp.Fragment.DSNhantinFragment;
 import com.example.knkapp.Fragment.HosoFragment;
-import com.example.knkapp.Fragment.WelcomsFragment;
+import com.example.knkapp.Fragment.XinchaoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,9 +41,9 @@ public class BangDieuKhienActivity extends AppCompatActivity {
 
 
         actionBar.setTitle("Hello"); // thay đổi tiêu đề thanh trạng thái
-        WelcomsFragment welcomsFragment= new WelcomsFragment();
+        XinchaoFragment xinchaoFragment = new XinchaoFragment();
         FragmentTransaction Ft1= getSupportFragmentManager().beginTransaction();
-        Ft1.replace(R.id.Frame_BDK_id,welcomsFragment,"");
+        Ft1.replace(R.id.Frame_BDK_id, xinchaoFragment,"");
         Ft1.commit();
 
     }
@@ -64,19 +63,12 @@ public class BangDieuKhienActivity extends AppCompatActivity {
                             Ft2.commit();
                             return true;
 
-                        case R.id.nav_banbe:
+                        case R.id.nav_nhantin:
                             actionBar.setTitle("Bạn bè"); // thay đổi tiêu đề thanh trạng thái
                             BanbeFragment banbeFragment= new BanbeFragment();
                             FragmentTransaction Ft3= getSupportFragmentManager().beginTransaction();
                             Ft3.replace(R.id.Frame_BDK_id,banbeFragment,"");
                             Ft3.commit();
-                            return true;
-                        case R.id.nav_nhantin:
-                            actionBar.setTitle("Nhắn tin"); // thay đổi tiêu đề thanh trạng thái
-                            DSNhantinFragment dsNhantinFragment= new DSNhantinFragment();
-                            FragmentTransaction Ft4= getSupportFragmentManager().beginTransaction();
-                            Ft4.replace(R.id.Frame_BDK_id,dsNhantinFragment,"");
-                            Ft4.commit();
                             return true;
                     }
                     return false;
@@ -90,7 +82,6 @@ public class BangDieuKhienActivity extends AppCompatActivity {
         if(user != null){
             // người dùng đã đăng nhâp ở đây
             // lấy email đăng nhập của người dùng
-            //txtHoso.setText(user.getEmail());
         } else {
             // người dùng chưa đăng nhập, đi đến main activity
             startActivity(new Intent(BangDieuKhienActivity.this, MainActivity.class));

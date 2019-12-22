@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@drawable/noel7"
     tools:context=".DangnhapActivity">
 
     <!-- Textview đăng kí
@@ -16,9 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Đăng nhập tài khoản"
+        android:text="Đăng nhập"
         android:textColor="@color/colorBlack"
         android:textSize="25dp"
+        android:layout_marginTop="20dp"
         />
     <!-- Editview nhập email
     * set textview ở giữa
@@ -75,10 +77,9 @@
         android:id="@+id/txt_DNquenmk_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quên mật khẩu? lấy lại mật khẩu"
+        android:text="Quên mật khẩu? lấy lại"
         android:textAlignment="center"
-        android:layout_below="@id/btn_DNdangnhap_id"
-        android:textColor="@color/colorBlack" />
+        android:layout_below="@id/btn_DNdangnhap_id" />
 
         <!--đăng nhập bằng tài khoản google-->
     <com.google.android.gms.common.SignInButton
@@ -87,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/txt_DNquenmk_id"
-        android:paddingTop="10sp"/>
+        android:paddingTop="20dp"/>
 
 
     <!-- Textview click để đăng kí, nếu chưa có tài khoản-->
@@ -97,7 +98,6 @@
         android:layout_height="wrap_content"
         android:text="Bạn không có tài khoản? Đăng kí"
         android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

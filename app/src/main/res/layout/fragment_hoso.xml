@@ -3,12 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1EDED"
+    android:background="@drawable/noel3"
     tools:context=".Fragment.HosoFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,7 +16,7 @@
                 android:id="@+id/coverImage_id"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@drawable/anhbia"
                 android:scaleType="fitXY">
 
             </ImageView>
@@ -33,8 +30,8 @@
                 <!--ảnh avata-->
                 <ImageView
                     android:id="@+id/Avata_id"
-                    android:src="@drawable/ic_avatadefault_icon"
-                    android:layout_marginStart="30dp"
+                    android:src="@drawable/avatafun"
+                    android:layout_marginStart="5dp"
                     android:background="@color/colorPrimary"
                     android:padding="5dp"
                     android:layout_width="120dp"
@@ -74,8 +71,6 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-
-    </ScrollView>
 
 <!-- nút thay đổi hình ảnh, tên và phone number-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

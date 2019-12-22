@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class DangkiActivity extends AppCompatActivity {
     // khai báo button và edittext
-    EditText EditEmail, EditPassword;
+    EditText EditEmail, EditPassword, EditRepassword;
     Button btnDangki;
     TextView txtYesaccount;
 
@@ -54,6 +54,7 @@ public class DangkiActivity extends AppCompatActivity {
         EditPassword= findViewById(R.id.Edit_Dpassword_id);
         btnDangki = findViewById(R.id.btn_Ddangki_id);
         txtYesaccount= findViewById(R.id.txt_Dyesaccount_id);
+        EditRepassword=findViewById(R.id.Edit_Drepassword_id);
 
         //Trong phương thức onCreate (), khởi tạo thể hiện FirebaseAuth.
         mAuth = FirebaseAuth.getInstance();
@@ -67,6 +68,7 @@ public class DangkiActivity extends AppCompatActivity {
                 // nhập tài khoản , mật khẩu
                 String email= EditEmail.getText().toString().trim();
                 String password = EditPassword.getText().toString().trim();
+                String rePassword= EditRepassword.getText().toString().trim();
 
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     // set lỗi
@@ -75,7 +77,11 @@ public class DangkiActivity extends AppCompatActivity {
                 }else if(password.length()<6){
                     EditPassword.setError("Mật khẩu phải dài hơn 6 kí tự ");
                     EditPassword.setFocusable(true);
-                }else {
+                }
+                    else if (!(password.equals(rePassword))){
+                    EditRepassword.setError("Mật khẩu nhập lại không đúng");
+                    EditRepassword.setFocusable(true);
+                } else {
                     registerUser(email,password);
                 }
 
