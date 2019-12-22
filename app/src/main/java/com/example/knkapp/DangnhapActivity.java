@@ -243,6 +243,8 @@ public class DangnhapActivity extends AppCompatActivity {
         onBackPressed(); // đi đến activity trước
         return super.onSupportNavigateUp();
     }
+
+
 // hàm bật hoạt động của tài khoản google
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -287,8 +289,9 @@ public class DangnhapActivity extends AppCompatActivity {
                                 // đưa thông tin vào HashMap
                                 hashMap.put("email",email);// email người dùng
                                 hashMap.put("uid",uid);// id người dùng
+                                hashMap.put("onlineStatus","online"); // email người dùng
                                 hashMap.put("name","");// tên người dùng
-                                hashMap.put("phone","");// người dùng
+                                hashMap.put("phone","");// số điện thoại người dùng
                                 // cơ sở dữ liệu của firebase
                                 FirebaseDatabase firebaseDatabase=  FirebaseDatabase.getInstance();
                                 // đường dẫn lưu trữ dữ liệu người dùng có tên "Users"

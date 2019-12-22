@@ -3,6 +3,7 @@ package com.example.knkapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -30,8 +32,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class NhantinActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -98,13 +102,25 @@ public class NhantinActivity extends AppCompatActivity {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     String tenNguoiNhanTin= ""+ds.child("name").getValue();
                     String emailNguoiNhanTin=""+ds.child("email").getValue();
-
+                    String tinhtrangTruycap= ""+ds.child("onlineStatus").getValue();
                     if(tenNguoiNhanTin=="") {
                         txtTenNguoiNhanTinNhan.setText(emailNguoiNhanTin);
                     }else
                     {
                         txtTenNguoiNhanTinNhan.setText(tenNguoiNhanTin);
                     }
+
+                    if(tinhtrangTruycap.equals("online")){
+                        txtTinhTrangNguoiNhanTin.setText(tinhtrangTruycap);
+                    }
+                    else{
+                        // chuyển đổi thoi gian sang dd/mm/yyyy am=pm
+                        Calendar calendar= Calendar.getInstance(Locale.ENGLISH);
+                        calendar.setTimeInMillis(Long.parseLong(tinhtrangTruycap));
+                        String dateTime= DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
+                        txtTinhTrangNguoiNhanTin.setText("Truy cập: "+ dateTime);
+                    }
+
                 }
             }
             @Override
@@ -120,7 +136,7 @@ public class NhantinActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(tinNhan)){
                     // tin nhắn trống, hiện thông báo
                     Toast.makeText(NhantinActivity.this, "Tin nhắn trống...", Toast.LENGTH_SHORT).show();
-                
+
                 }else{
                     // tin nhắn có ký tự, viết hàm gửi tin nhắn
                     GuiTinNhan(tinNhan);
@@ -217,36 +233,43 @@ public class NhantinActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
+
+
+
+
+    private void KiemtraTinhtrangOnline(String tinhtrang){
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        HashMap<String,Object> hashMap= new HashMap<>();
+        hashMap.put("onlineStatus",tinhtrang);
+
+        //cập nhập giá trị tình trang online của người dùng
+        databaseReference.updateChildren(hashMap);
+    }
+
     @Override
     protected void onStart() {
         KiemtraTinhtrangBanbe();
+        //  lấy hàm kiểm tra tình trang online
+        KiemtraTinhtrangOnline("online");
         super.onStart();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        // lấy thời gian
+        String thoigian= String.valueOf(System.currentTimeMillis());
+        // thiết lập offline với thời gian
+        KiemtraTinhtrangOnline(thoigian);
        UserXem.removeEventListener(xemDStinNhan);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        // ẩn tìm kiếm
-        menu.findItem(R.id.action_timkiemBanBe).setVisible(false);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // lấy id của các mục
-        int id= item.getItemId();
-        if(id== R.id.action_dangxuat){
-            firebaseAuth.signOut();// đăng xuất ra khổi tài khoản
-            KiemtraTinhtrangBanbe();
-        }
-
-        return super.onOptionsItemSelected(item);
+    protected void onResume() {
+        //  lấy hàm kiểm tra tình trang online
+        KiemtraTinhtrangOnline("online");
+        super.onResume();
     }
 }

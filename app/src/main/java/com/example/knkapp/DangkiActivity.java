@@ -78,7 +78,7 @@ public class DangkiActivity extends AppCompatActivity {
                     EditPassword.setError("Mật khẩu phải dài hơn 6 kí tự ");
                     EditPassword.setFocusable(true);
                 }
-                    else if (!(password.equals(rePassword))){
+                else if (!(password.equals(rePassword))){
                     EditRepassword.setError("Mật khẩu nhập lại không đúng");
                     EditRepassword.setFocusable(true);
                 } else {
@@ -98,7 +98,7 @@ public class DangkiActivity extends AppCompatActivity {
     }
 
     private void registerUser(String email, String password) {
-    // tài khoản và mật khẩu hợp lệ, bắt đầu đăng nhập use
+        // tài khoản và mật khẩu hợp lệ, bắt đầu đăng nhập use
         progressDialog.show();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -117,6 +117,7 @@ public class DangkiActivity extends AppCompatActivity {
                             // đưa thông tin vào HashMap
                             hashMap.put("email",email); // email người dùng
                             hashMap.put("uid",uid);  // id người dùng
+                            hashMap.put("onlineStatus","online"); // email người dùng
                             hashMap.put("name","");// sẽ thêm sao
                             hashMap.put("phone",""); // sdt người dùng
 
