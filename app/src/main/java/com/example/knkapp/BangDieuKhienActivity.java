@@ -18,29 +18,28 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class BangDieuKhienActivity extends AppCompatActivity {
 
-    // người dùng
+    // khai báo biến xác thực người dùng
     FirebaseAuth firebaseAuth;
-    // khởi tạo biến
-    //TextView txtHoso;
+    // khởi tạo biến thanh trạng thái
     ActionBar actionBar;
+
+    // hàm này sẽ khởi tạo một số biến liên quan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bangdieukhien);
 
-        // tạo thanh tiêu đề dùng actionbar
+        // tạo thanh trạng thái dùng actionbar
          actionBar = getSupportActionBar();
-
         // lấy người dùng
         firebaseAuth = FirebaseAuth.getInstance();
-        //lấy id của .xml
-       // txtHoso= findViewById(R.id.txt_HSHoso_id);
-        // lấy id của Bottomnavigation
+        // lấy id của thanh điều hướng Bottomnavigation và đặt tên là  bottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.Bottom_BDK_id);
+        // gọi bộ lắng nghe sự kiện khi người dùng chọn
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
 
-
         actionBar.setTitle("Hello"); // thay đổi tiêu đề thanh trạng thái
+        //Khởi tạo Frament có tên xinchaoFragment
         XinchaoFragment xinchaoFragment = new XinchaoFragment();
         FragmentTransaction Ft1= getSupportFragmentManager().beginTransaction();
         Ft1.replace(R.id.Frame_BDK_id, xinchaoFragment,"");
@@ -48,11 +47,13 @@ public class BangDieuKhienActivity extends AppCompatActivity {
 
     }
 
+    // hàm này dùng để gọi các frament liên quan
+    // gồm: Frament Hồ sơ(HosoFragment)  và Frament Bạn bè (BanbeFragment)
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    // xử lý danh mục khi ấn click
+                    // xử lý danh mục khi ấn gồm: thông tin cá nhân và nhắn tin
                     switch (menuItem.getItemId()){
 
                         case R.id.nav_hoso:
@@ -76,11 +77,11 @@ public class BangDieuKhienActivity extends AppCompatActivity {
             };
 
 
+    // hàm kiểm tra tình trạng đã đăng nhập chưa
     private void checkUserStatus(){
         // lấy người dùng hiện tại
         FirebaseUser user=firebaseAuth.getCurrentUser();
         if(user != null){
-            // người dùng đã đăng nhâp ở đây
             // lấy email đăng nhập của người dùng
         } else {
             // người dùng chưa đăng nhập, đi đến main activity
@@ -89,12 +90,14 @@ public class BangDieuKhienActivity extends AppCompatActivity {
         }
     }
 
+    // hàm khởi tạo mũi tên quay về
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
 
+    // bắt đầu
     @Override
     protected void onStart() {
         // kiểm tra khi bắt đầu ứng dụng

@@ -8,18 +8,13 @@
     android:background="@drawable/noel7"
     tools:context=".MainActivity">
 
-    <!-- Logo của ứng dụng
-        * dài, rộng 250dp
-        * set ảnh ở vị trí trung tâm "true"
-        * cách top là 20dp-->
+    <!-- Logo của ứng dụng-->
     <ImageView
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        />
-
+        android:layout_marginTop="40dp" />
     <!--Button đăng nhập-->
     <Button
         android:id="@+id/btn_Mdangnhap_id"
@@ -40,8 +35,8 @@
         android:layout_centerHorizontal="true"
         android:textColor="#2138DB"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="130dp"
-        />
+        android:layout_marginBottom="130dp" />
+    <!--giới thiệu-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

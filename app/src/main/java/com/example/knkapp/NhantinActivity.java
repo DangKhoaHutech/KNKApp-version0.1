@@ -39,16 +39,16 @@ import java.util.Locale;
 
 public class NhantinActivity extends AppCompatActivity {
     Toolbar toolbar;
-    RecyclerView recyclerView; // danh sách views
-    ImageView imV_anhNguoiNhanTin; // nút gửi tin nhắn
-    TextView  txtTenNguoiNhanTinNhan, txtTinhTrangNguoiNhanTin; // tên người gửi và Tình trạng
+    RecyclerView recyclerView; // danh sách views tin nhắn
+    ImageView imV_anhNguoiNhanTin; // ảnh người nhắn tin (mặc định hệ thống)
+    TextView  txtTenNguoiNhanTinNhan, txtTinhTrangNguoiNhanTin; // tên người gửi và Tình trạng on/off
     EditText editSoanTinNhan;// soạn tin nhắn
-    ImageButton BtnGuiTinNhan; // bút gửi tin nhắn
+    ImageButton BtnGuiTinNhan; // nút gửi tin nhắn
 
-    // khai báo lưu trữ
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference NguoiDungDBReference;
+
+    FirebaseAuth firebaseAuth; // khai báo biến xác thực người dùng
+    FirebaseDatabase firebaseDatabase; // khai báo Database FireBase
+    DatabaseReference NguoiDungDBReference; // Khởi tạo DatabaseReference để đọc và ghi dữ liệu
 
     // kiểm tra if người dùng xem hoặc chưa xem
     ValueEventListener xemDStinNhan;
@@ -63,17 +63,18 @@ public class NhantinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhantin);
-        //gọi id từ views xml
-        Toolbar toolbar = (Toolbar) findViewById(R.id.thanhtt_id);
+
+        //gọi id thanhtt_id từ views xml
+        Toolbar toolbar = findViewById(R.id.thanhtt_id);
         //setSupportActionBar(toolbar);
         toolbar.setTitle("Nhắn tin");
-
-        recyclerView= findViewById(R.id.DSNhantin_recyclerView);
-        imV_anhNguoiNhanTin= findViewById(R.id.anhnguoinhantin_id);
-        txtTenNguoiNhanTinNhan= findViewById(R.id.txtNguoinhan_id);
-        txtTinhTrangNguoiNhanTin= findViewById(R.id.txtTinhTrangNguoiNhan_id);
-        BtnGuiTinNhan= findViewById(R.id.Ibtn_guiTinNhan_id);
-        editSoanTinNhan= findViewById(R.id.txt_SoanTinNhan_id);
+        //gọi id  từ views xml
+        recyclerView= findViewById(R.id.DSNhantin_recyclerView); // id danh sách tin nhắn
+        imV_anhNguoiNhanTin= findViewById(R.id.anhnguoinhantin_id);// id ảnh
+        txtTenNguoiNhanTinNhan= findViewById(R.id.txtNguoinhan_id);// id người nhắn tin
+        txtTinhTrangNguoiNhanTin= findViewById(R.id.txtTinhTrangNguoiNhan_id);// id tình trạng on /off
+        BtnGuiTinNhan= findViewById(R.id.Ibtn_guiTinNhan_id);// id gửi tin
+        editSoanTinNhan= findViewById(R.id.txt_SoanTinNhan_id);// id soạn tin
 
         // tạo linearLayout for recyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -126,25 +127,34 @@ public class NhantinActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
+
+
+
+
+
+
+
         // nhấn vào button để gửi tin nhắn
         BtnGuiTinNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //lấy text từ edit text soạn tin nhắn
-                String tinNhan= editSoanTinNhan.getText().toString().trim();
+                //lấy text từ Edittext soạn tin nhắn
+                String tinNhan = editSoanTinNhan.getText().toString().trim();
                 // kiểm tra xem edit text có trống hay không
                 if(TextUtils.isEmpty(tinNhan)){
-                    // tin nhắn trống, hiện thông báo
+                    // tin nhắn trống sẽ hiện thông báo
                     Toast.makeText(NhantinActivity.this, "Tin nhắn trống...", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    // tin nhắn có ký tự, viết hàm gửi tin nhắn
+                    // tin nhắn có ký tự, gọi hàm viết hàm gửi tin nhắn
                     GuiTinNhan(tinNhan);
                 }
             }
         });
+        // gọi hàm đọc tin nhắn
        DocTinNhan();
-        xemTinNhan();
+       // gọi hàm xem tin nhắn
+       xemTinNhan();
 
     }
 
@@ -177,6 +187,7 @@ public class NhantinActivity extends AppCompatActivity {
             }
         });
     }
+
     private void xemTinNhan() {
 
         UserXem = FirebaseDatabase.getInstance().getReference("Chats");
@@ -233,11 +244,6 @@ public class NhantinActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
-
-
-
 
     private void KiemtraTinhtrangOnline(String tinhtrang){
         DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(myUid);
