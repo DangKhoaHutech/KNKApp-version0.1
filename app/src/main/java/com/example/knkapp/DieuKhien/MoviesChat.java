@@ -35,8 +35,8 @@ public class MoviesChat extends RecyclerView.Adapter<MoviesChat.MyHoder> {
     private static final int MSG_TYPE_LEFT = 0;
     private static final int MSG_TYPE_RIGHT = 1;
     Context context;
-    List<ModelChat> DSnhanTin;
-    FirebaseUser firebaseUser;
+    List<ModelChat> DSnhanTin; // tạo hàm list Model bạn bè kiểm dữ liệu constructor
+    FirebaseUser firebaseUser; //Thể hiện thông tin hồ sơ của người dùng trong cơ sở dữ liệu người dùng của dự án Firebase.
 
     public MoviesChat(Context context, List<ModelChat> DSnhanTin) {
         this.context = context;
@@ -45,12 +45,14 @@ public class MoviesChat extends RecyclerView.Adapter<MoviesChat.MyHoder> {
     @NonNull
     @Override
     public MyHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        // nếu người dùng là bên nhận
         if(viewType== MSG_TYPE_LEFT){
             View view= LayoutInflater.from(context)
                     .inflate(R.layout.row_chat_left,parent,false);
             return new MyHoder(view);
         }
-        else
+        else // ngược lại là bên gửi
             {
             View view= LayoutInflater.from(context)
                     .inflate(R.layout.row_chat_right,parent,false);
@@ -59,7 +61,7 @@ public class MoviesChat extends RecyclerView.Adapter<MoviesChat.MyHoder> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyHoder holder, final int position) {
-        // lấy dữ liệu
+        // lấy dữ liệu tin nhắn và thời gian
         String tinNhan= DSnhanTin.get(position).getTinnhan();
         String thoiGian= DSnhanTin.get(position).getThoigian();
 
@@ -106,6 +108,7 @@ public class MoviesChat extends RecyclerView.Adapter<MoviesChat.MyHoder> {
         });
         // thiết lập tình trạng xem/ đã gửi tin nhắn
         if(position==DSnhanTin.size()-1){
+            // nếu isDaxem trong csdl firebase true
             if(DSnhanTin.get(position).isDaxem()){
                 holder.daxem.setText("Đã xem");
             }
