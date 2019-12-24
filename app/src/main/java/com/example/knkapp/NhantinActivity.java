@@ -52,10 +52,11 @@ public class NhantinActivity extends AppCompatActivity {
 
     // kiểm tra if người dùng xem hoặc chưa xem
     ValueEventListener xemDStinNhan;
-    DatabaseReference  UserXem;
-    List<ModelChat> DSnhanTin;
-    MoviesChat moviesChat;
+    DatabaseReference  UserXem;  // Khởi tạo DatabaseReference để đọc và ghi dữ liệu
+    List<ModelChat> DSnhanTin; // tạo list kiểu ModelChat tên DSnhanTin
+    MoviesChat moviesChat; // khởi tạo hàm  MoviesChat với tên moviesChat
 
+    // tạo hai chuỗi id người nhận tin và id người nhắn tin
     String hisUid ;
     String myUid;
 
@@ -66,11 +67,11 @@ public class NhantinActivity extends AppCompatActivity {
 
         //gọi id thanhtt_id từ views xml
         Toolbar toolbar = findViewById(R.id.thanhtt_id);
-        //setSupportActionBar(toolbar);
-        toolbar.setTitle("Nhắn tin");
+        /*setSupportActionBar(toolbar);*/
+        toolbar.setTitle("Nhắn tin");// đặt tên cho tiêu dề của thanh trạng thái (toolbar)
         //gọi id  từ views xml
         recyclerView= findViewById(R.id.DSNhantin_recyclerView); // id danh sách tin nhắn
-        imV_anhNguoiNhanTin= findViewById(R.id.anhnguoinhantin_id);// id ảnh
+        imV_anhNguoiNhanTin= findViewById(R.id.anhnguoinhantin_id);// id ảnh (mặc định hệ thống)
         txtTenNguoiNhanTinNhan= findViewById(R.id.txtNguoinhan_id);// id người nhắn tin
         txtTinhTrangNguoiNhanTin= findViewById(R.id.txtTinhTrangNguoiNhan_id);// id tình trạng on /off
         BtnGuiTinNhan= findViewById(R.id.Ibtn_guiTinNhan_id);// id gửi tin
@@ -84,16 +85,15 @@ public class NhantinActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         // nhấn vào người dùng từ danh sách.
-        // lấy tên
         Intent intent = getIntent();
-        hisUid= intent.getStringExtra("hisUid");
+        hisUid= intent.getStringExtra("hisUid"); // lấy tên
         firebaseAuth = FirebaseAuth.getInstance();
 
 
         firebaseDatabase= FirebaseDatabase.getInstance();
         NguoiDungDBReference= firebaseDatabase.getReference("Users");
 
-         // tìm người dùng để lấy thông tin
+         // truy vấn tìm người dùng để lấy thông tin
         Query TruyvanNguoiDung=  NguoiDungDBReference.orderByChild("uid").equalTo(hisUid);
         // lấy tên người dùng
         TruyvanNguoiDung.addValueEventListener(new ValueEventListener() {
@@ -104,33 +104,35 @@ public class NhantinActivity extends AppCompatActivity {
                     String tenNguoiNhanTin= ""+ds.child("name").getValue();
                     String emailNguoiNhanTin=""+ds.child("email").getValue();
                     String tinhtrangTruycap= ""+ds.child("onlineStatus").getValue();
+
+                    // lúc mới tạo tài khoản người dùng chưa đặt tên thì ktra, nếu tên rỗng thì hiển gmail
                     if(tenNguoiNhanTin=="") {
                         txtTenNguoiNhanTinNhan.setText(emailNguoiNhanTin);
-                    }else
+                    }else // ngược lại thì lấy tên
                     {
                         txtTenNguoiNhanTinNhan.setText(tenNguoiNhanTin);
                     }
 
+
+                    // so sánh, nếu tình trạng truy cập trả về giống với chuỗi "online"
+                    // thì lấy text == với tinhtrangtruycap
+                    // tức là người dùng đang online
                     if(tinhtrangTruycap.equals("online")){
                         txtTinhTrangNguoiNhanTin.setText(tinhtrangTruycap);
                     }
+                    //ngược lại thì lấy thời gian người đó off
                     else{
                         // chuyển đổi thoi gian sang dd/mm/yyyy am=pm
-                        Calendar calendar= Calendar.getInstance(Locale.ENGLISH);
+                        Calendar calendar= Calendar.getInstance(Locale.ENGLISH);// khỏi tạo thời gian
                         calendar.setTimeInMillis(Long.parseLong(tinhtrangTruycap));
                         String dateTime= DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
                         txtTinhTrangNguoiNhanTin.setText("Truy cập: "+ dateTime);
                     }
-
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-
-
-
-
 
 
 
@@ -157,11 +159,11 @@ public class NhantinActivity extends AppCompatActivity {
        xemTinNhan();
 
     }
-
+    // hàm đọc tin nhắn
     private void DocTinNhan() {
-        DSnhanTin= new ArrayList<>();
+        DSnhanTin= new ArrayList<>(); // khởi tạo
         DatabaseReference databaseReference= FirebaseDatabase.getInstance()
-                .getReference("Chats");
+                .getReference("Chats"); // lấy tin nhắn từ database Chats trong firebase
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -169,18 +171,18 @@ public class NhantinActivity extends AppCompatActivity {
                 DSnhanTin.clear();
 
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    ModelChat chat= ds.getValue(ModelChat.class);
+                    ModelChat chat= ds.getValue(ModelChat.class); // khởi tạo constructor tên chat
+
+                    // so sánh nếu người gửi và người nhận hoặc ngược lại đúng thì hiện ds chat
                     if(chat.getNhantin().equals(myUid) && chat.getGuitin().equals(hisUid)
                             || chat.getNhantin().equals(hisUid) && chat.getGuitin().equals(myUid)){
                         DSnhanTin.add(chat);
                     }
                     moviesChat = new MoviesChat(NhantinActivity.this, DSnhanTin);
-                    moviesChat.notifyDataSetChanged();
-
-                    recyclerView.setAdapter(moviesChat);
+                    moviesChat.notifyDataSetChanged();// gọi  notifyDataSetChanged để update dữ liệu
+                    recyclerView.setAdapter(moviesChat); //Để hiển thị các mục trong danh sách
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -188,12 +190,19 @@ public class NhantinActivity extends AppCompatActivity {
         });
     }
 
+    // hiển thị chế độ đã xem tin nhắn
     private void xemTinNhan() {
 
+        // lấy dữ liệu từ Chats
         UserXem = FirebaseDatabase.getInstance().getReference("Chats");
         xemDStinNhan= UserXem.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //Một phiên bản DataSnapshot chứa dữ liệu từ vị trí Cơ sở dữ liệu Firebase.
+                // Bất cứ khi nào bạn đọc dữ liệu Cơ sở dữ liệu,
+                // bạn sẽ nhận được dữ liệu dưới dạng DataSnapshot.
+
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     ModelChat nhantin= ds.getValue(ModelChat.class);
                     if((nhantin.getNhantin().equals(myUid)) && (nhantin.getGuitin().equals(hisUid))){
