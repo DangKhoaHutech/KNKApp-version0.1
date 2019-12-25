@@ -49,13 +49,13 @@ public class MoviesChat extends RecyclerView.Adapter<MoviesChat.MyHoder> {
         // nếu người dùng là bên nhận
         if(viewType== MSG_TYPE_LEFT){
             View view= LayoutInflater.from(context)
-                    .inflate(R.layout.row_chat_left,parent,false);
+                    .inflate(R.layout.row_chat_left,parent,false); // gọi đến row_chat_left
             return new MyHoder(view);
         }
         else // ngược lại là bên gửi
             {
             View view= LayoutInflater.from(context)
-                    .inflate(R.layout.row_chat_right,parent,false);
+                    .inflate(R.layout.row_chat_right,parent,false); // gọi đến row_chat_right
             return new MyHoder(view);
         }
     }

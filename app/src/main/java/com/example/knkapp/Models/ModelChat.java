@@ -1,5 +1,9 @@
 package com.example.knkapp.Models;
 
+
+
+// tạo mô hình để chứa data, get và set data
+
 public class ModelChat {
     String tinnhan, nhantin, guitin, thoigian;
     boolean daxem;

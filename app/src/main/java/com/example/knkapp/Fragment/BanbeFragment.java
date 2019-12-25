@@ -38,9 +38,9 @@ import java.util.List;
  */
 public class BanbeFragment extends Fragment {
 
-    // khai báo sử dụng RecyclerView.
+    // khai báo sử dụng RecyclerView
     RecyclerView recyclerView;
-    MoviesBanbe moviesBanbe;
+    MoviesBanbe moviesBanbe; // khởi tạo class MoviesBanbe
     List<ModelBanBe> modelBanBeList;
     // khai báo lưu trữ
     FirebaseAuth firebaseAuth;

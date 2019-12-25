@@ -47,7 +47,6 @@ public class DangnhapActivity extends AppCompatActivity {
     EditText editEmail, editPassword;
     TextView txtNotaccount, txtQuenmatkhau;
     Button btnDangnhap;
-    SignInButton btnDNgoogle;
 
     //Khai báo một biến để xác thực người dùng
     private FirebaseAuth mAuth;

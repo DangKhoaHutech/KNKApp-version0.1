@@ -23,19 +23,20 @@ public class MoviesBanbe extends RecyclerView.Adapter<MoviesBanbe.MyHolder>{
     Context context;
     List<ModelBanBe> userList; // tạo hàm list Model bạn bè kiểm dữ liệu constructor
 
+    // khởi tạo constructor (alt + insert)
     public MoviesBanbe(Context context, List<ModelBanBe> userList) {
         this.context = context;
         this.userList = userList;
     }
 
-
-    //hàm khởi tạo Hoder và hiển thị
+    //hàm khởi tạo hàm MyHolder và hiển thị
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        // gọi Row_users và gắn tên cho nó là view (Row_users là một item tên đại diện cho một người)
         View view= LayoutInflater.from(context).inflate(R.layout.row_users, parent,false);
-        return new MyHolder(view);
+        return new MyHolder(view);// trả về view
     }
 
     // hàm lấy thông tin người dùng và gọi đến activity nhắn tin
@@ -43,19 +44,23 @@ public class MoviesBanbe extends RecyclerView.Adapter<MoviesBanbe.MyHolder>{
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
         //lấy thông tin
-        final String hisUID = userList.get(position).getUid();
-        String TenBanBe= userList.get(position).getName();
-        final String EmailBanBe= userList.get(position).getEmail();
-        holder.tenBanBe.setText(TenBanBe);
-        holder.emailBeBe.setText(EmailBanBe);
+        final String hisUID = userList.get(position).getUid(); // lấy id
+        String TenBanBe= userList.get(position).getName(); // lấy tên
+        final String EmailBanBe= userList.get(position).getEmail(); // lấy email
+
+        //thông tin hiển thị trong item
+        holder.tenBanBe.setText(TenBanBe);// đưa tên vào row_user
+        holder.emailBeBe.setText(EmailBanBe); // đưa email vào row_user
 
         // khi ấn vào một item tên sẽ gọi đến activity Nhắn tin
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Công dụng Intent  khởi tạo activity,
+                // nơi nó có thể được coi là chất keo giữa các activity
                 Intent intent= new Intent(context, NhantinActivity.class);
-                intent.putExtra("hisUid",hisUID);
-                context.startActivity(intent);
+                intent.putExtra("hisUid",hisUID); // thêm dữ liệu vào intent
+                context.startActivity(intent);// bắt đầu activity
             }
         });
     }
@@ -73,7 +78,6 @@ public class MoviesBanbe extends RecyclerView.Adapter<MoviesBanbe.MyHolder>{
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            // gọi id từ .xml
             tenBanBe= itemView.findViewById(R.id.ten_id_banbe); // tên
             emailBeBe= itemView.findViewById(R.id.email_id_banbe);// email
         }
