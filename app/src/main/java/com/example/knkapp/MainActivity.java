@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // xử lý nút button đăng nhập khi click vào. *(bản quyền thuộc Trần Đăng Khoa)
+        // xử lý nút button đăng nhập khi click vào.
         btnDangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

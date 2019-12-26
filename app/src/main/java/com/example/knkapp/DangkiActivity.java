@@ -148,7 +148,7 @@ public class DangkiActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                // lỗi , bỏ qua tiến trình và hiển thị hộp thoại lỗi *(project này của Trần Đăng khoa)
+                // lỗi , bỏ qua tiến trình và hiển thị hộp thoại lỗi
                 progressDialog.dismiss();
                 Toast.makeText(DangkiActivity.this," Địa chỉ gmail "+EditEmail.getText().toString()+" đã có người sử dụng !"/*+e.getMessage()*/,Toast.LENGTH_SHORT).show();
             }

@@ -87,7 +87,7 @@ public class HosoFragment extends Fragment {
 
         // chúng ta cần có được thông tin hiện tại của người dùng đang đăng nhập
         // để có được nó chúng ta cần có id hoặc gmail của user
-        // ở đây khoa sẽ lấy người dùng bằng email lúc đã đăng ký (nếu người dùng chưa đặt tên)
+        // ở đây  sẽ lấy người dùng bằng email lúc đã đăng ký (nếu người dùng chưa đặt tên)
 
         // sử dụng truy vấn orderbyChild để lấy thông tin người dùng dựa trên email và gán cho query
         //Lớp Truy vấn (và lớp con của nó, DatabaseReference) được sử dụng để đọc dữ liệu
@@ -203,7 +203,7 @@ public class HosoFragment extends Fragment {
         linearLayout.addView(editTextSDT); // thêm edittext vào view
         builder.setView(linearLayout);// set theo  linearLayout
 
-        // thêm 2 button trong hộp thoại( đồ án thuộc sở hữu của Trần Đăng Khoa)
+        // thêm 2 button trong hộp thoại
         // gồm: Thay đổi tên và thoát
 
         // button chọn thay đổi sdt
@@ -288,7 +288,7 @@ public class HosoFragment extends Fragment {
         linearLayout.addView(editTextTen);
         builder.setView(linearLayout);
 
-        // thêm 2 button trong hộp thoại( đồ án thuộc sở hữu của Trần Đăng Khoa)
+        // thêm 2 button trong hộp thoại
         // gồm: Thay đổi tên và thoát
         // button chọn thay đổi
         builder.setPositiveButton("Thay đổi tên", new DialogInterface.OnClickListener() {
